@@ -55,6 +55,5 @@ Route::get('login', function(){
 Route::post('/display-form-data',[FormController::class, 'show'])->name('display.form.data');
 
 // assignment day 4
-
 Route::get('post', [PostController::class,'create']);
 Route::post('storePost', [PostController::class, 'store'])->name('storePost');
