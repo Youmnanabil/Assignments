@@ -51,9 +51,14 @@ Route::get('contactus', function(){
 Route::get('login', function(){
     return view('login');
 });
-
 Route::post('/display-form-data',[FormController::class, 'show'])->name('display.form.data');
+
 
 // assignment day 4
 Route::get('post', [PostController::class,'create']);
 Route::post('storePost', [PostController::class, 'store'])->name('storePost');
+
+//assignment day 5
+Route::get('postTable', [PostController::class, 'index']);
+Route::get('editPost/{id}', [PostController::class, 'edit']);
+Route::put('update/{id}',[PostController::class, 'update'])->name('update');

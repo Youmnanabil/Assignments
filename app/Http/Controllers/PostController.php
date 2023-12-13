@@ -7,12 +7,14 @@ use App\Models\Post;
 
 class PostController extends Controller
 {
+    private $columns = ['title', 'description', 'auther', 'published'];
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $posts = Post::get();
+        return view('postTable', compact('posts'));
     }
 
     /**
@@ -28,19 +30,24 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $posts = new Post();
+       // $posts = new Post();
 
-        $posts->title = $request->title;
-        $posts->description = $request->description;
-        $posts->auther = $request->auther;
-        if(isset($request->published)){
+        //$posts->title = $request->title;
+        //$posts->description = $request->description;
+        //$posts->auther = $request->auther;
+        //if(isset($request->published)){
 
-            $posts->published = 1;
-        }else{
-            $posts->published = 0;
-        }
-        $posts->save();
-        return "posts inserted successfully";
+            //$posts->published = 1;
+        //}else{
+            //$posts->published = 0;
+        //}
+        //$posts->save();
+        //return "posts inserted successfully";
+
+        $data = $request->only($this->columns);
+        $data['published'] = isset($request->published);
+        Post::create($data);
+        return redirect('postTable');
     }
 
     /**
@@ -56,7 +63,8 @@ class PostController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $posts = Post::findorfail($id);
+        return view('updatePost', compact('posts'));
     }
 
     /**
@@ -64,7 +72,10 @@ class PostController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $data = $request->only($this->columns);
+        $data['published'] = isset($request->published);
+        Post::where('id', $id)->update($data);
+        return redirect('postTable');
     }
 
     /**
