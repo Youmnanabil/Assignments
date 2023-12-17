@@ -44,7 +44,12 @@ class PostController extends Controller
         //$posts->save();
         //return "posts inserted successfully";
 
-        $data = $request->only($this->columns);
+        $data = $request->validate([
+            'title' => 'required|string|max:50',
+            'description' => 'required|string',
+            'auther' => 'required',
+        ]);
+        //$data = $request->only($this->columns);
         $data['published'] = isset($request->published);
         Post::create($data);
         return redirect('postTable');
@@ -55,7 +60,8 @@ class PostController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $posts = Post::findorfail($id);
+        return view('showPost', compact('posts'));
     }
 
     /**
@@ -83,6 +89,32 @@ class PostController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Post::where('id', $id)->delete();
+        return redirect('postTable');
+    }
+    /**
+     *show Trashed List
+     */
+    public function trashed()
+    {
+        $Tpost = Post::onlyTrashed()->get();
+        return view('trashed', compact('Tpost'));
+    }
+    /**
+     * delete data permenantly
+     */
+
+     public function forceDelete(string $id)
+    {
+        Post::where('id', $id)->forceDelete();
+        return redirect('postTable');  
+    }
+    /**
+     * restore data
+     */
+    public function restore(string $id)
+    {
+        Post::where('id', $id)->restore();
+        return redirect('postTable');  
     }
 }

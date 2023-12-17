@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Posts</title>
+  <title>Deleted Posts</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -12,7 +12,7 @@
   @include('include/nav')
 
 <div class="container">
-  <h2>Post data</h2>            
+  <h2>Deleted Post data</h2>            
   <table class="table table-striped">
     <thead>
       <tr>
@@ -20,21 +20,19 @@
         <th>Description</th>
         <th>Auther</th>
         <th>published</th>
-        <th>Eidt</th>
-        <th>Show</th>
-        <th>Delete</th>
+        <th>Force Delete</th>
+        <th>Restore Data</th>
       </tr>
     </thead>
     <tbody>
-    @foreach($posts as $row)
+    @foreach($Tpost as $row)
       <tr>
         <td>{{ $row->title}}</td>
         <td>{{ $row->description}}</td>
         <td>{{ $row->auther}}</td>
         <td> {{ $row->published ? "Yes" : "No"}}</td>
-        <td><a href="editPost/{{ $row->id }}">Edit</a></td>
-        <td><a href="showPost/{{ $row->id }}">show</a></td>
-        <td><a href="deletePost/{{ $row->id }}" onclick =" return confirm ('Are you sure you want to delete?')">delete</a></td>
+        <td><a href="forceDelete/{{ $row->id }}" onclick =" return confirm ('Are you sure you want to delete permenantly?')">Force delete</a></td>
+        <td><a href="restore/{{ $row->id }}" onclick =" return confirm ('Are you sure you want to restore?')">restore</a></td>
       </tr>
       @endforeach
 

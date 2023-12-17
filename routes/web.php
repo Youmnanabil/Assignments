@@ -55,10 +55,17 @@ Route::post('/display-form-data',[FormController::class, 'show'])->name('display
 
 
 // assignment day 4
-Route::get('post', [PostController::class,'create']);
+Route::get('post', [PostController::class,'create'])->name('post');
 Route::post('storePost', [PostController::class, 'store'])->name('storePost');
 
 //assignment day 5
-Route::get('postTable', [PostController::class, 'index']);
+Route::get('postTable', [PostController::class, 'index'])->name('postTable');
 Route::get('editPost/{id}', [PostController::class, 'edit']);
 Route::put('update/{id}',[PostController::class, 'update'])->name('update');
+
+//assignment day 6
+Route::get('showPost/{id}', [PostController::class, 'show'])->name('showPost');
+Route::get('deletePost/{id}', [PostController::class, 'destroy'])->name('deletePost');
+Route::get('trashed', [PostController::class, 'trashed'])->name('trashed');
+Route::get('forceDelete/{id}', [PostController::class, 'forceDelete'])->name('forceDelete');
+Route::get('restore/{id}', [PostController::class, 'restore'])->name('restore');
