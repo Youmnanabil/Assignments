@@ -3,6 +3,7 @@
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FormController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +19,7 @@ use App\Http\Controllers\FormController;
 Route::get('/', function () {
     return view('welcome');
 });
+
 
 //assignment day 2
 Route::prefix('blog')->group(function(){
@@ -69,3 +71,11 @@ Route::get('deletePost/{id}', [PostController::class, 'destroy'])->name('deleteP
 Route::get('trashed', [PostController::class, 'trashed'])->name('trashed');
 Route::get('forceDelete/{id}', [PostController::class, 'forceDelete'])->name('forceDelete');
 Route::get('restore/{id}', [PostController::class, 'restore'])->name('restore');
+
+//assignment day 11
+Auth::routes(['verify'=>true]);
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+//Route::get('reg', function(){
+  //  return view('auth.register');
+//});
